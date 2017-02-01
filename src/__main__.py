@@ -2,12 +2,17 @@
 
 import sys
 from inifile import Inifile
+import configparser
 
 def main(arg):
-    print(arg)
-    cfg = Inifile.load(arg)
-    print(cfg)
+
+    # read in ini file
+    cfg = configparser.ConfigParser()
+    cfg.read(arg)
+
+    print(cfg['not there'])
+
+
 
 if __name__ == '__main__':
-    print(sys.argv[:])
-    main(sys.argv)
+    main(sys.argv[1])
