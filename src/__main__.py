@@ -5,6 +5,7 @@ import configparser
 from system import System
 import matplotlib.pyplot as plt
 import numpy as np
+import cProfile as profile
 
 def main(arg):
 
@@ -13,8 +14,8 @@ def main(arg):
     cfg.read(arg)
 
     s = System(cfg)
-    for i in range(cfg['RUN'].getint('NSTEPS')):
-        s.step()
+    s.take_steps()
+#   profile.runctx('s.take_steps()', globals(), locals())
 
 
 

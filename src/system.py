@@ -5,29 +5,25 @@ import update
 class System:
     def __init__(self, cfg):
 
-
-
         # initialize mesh
         self.n = cfg['MESH'].getint('N')
         self.m_hx = np.zeros((self.n,self.n), dtype=np.float64, order='F')
         self.m_hy = np.zeros_like(self.m_hx, order='F')
         self.m_ez = np.zeros_like(self.m_hx, order='F')
 
+        # initialize other stuff... should probably use dictionary.
         self.dt = cfg['RUN'].getfloat('dt')
         self.dx = cfg['MESH'].getfloat('L')/self.n
         self.nth= cfg['RUN'].getint('NTHREADS')
+        self.nsteps = cfg['RUN'].getint('NSTEPS')
         self.t  = 0
         self.out_frames = 0
         print(update.update.__doc__)
 
-
     def step(self):
-        dt = self.dt
-        dx = self.dx
+        dt,dx = self.dt,self.dx
+        m_hx,m_hy,m_ez = self.m_hx,self.m_hy,self.m_ez
         kxy = dt/dx
-        m_hx = self.m_hx
-        m_hy = self.m_hy
-        m_ez = self.m_ez
         mu0 = 1.25663706e-6
         e0  = 8.854187817e-12
         a   = e0/dt
@@ -49,5 +45,7 @@ class System:
 
         self.t += dt
 
+    def take_steps(self):
 
-
+        for i in range(self.nsteps):
+            self.step()
