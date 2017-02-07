@@ -2,7 +2,8 @@
 
 import sys
 import configparser
-from system import System
+from system import System, get_solver
+import stepper
 import matplotlib.pyplot as plt
 import numpy as np
 import cProfile as profile
@@ -13,7 +14,7 @@ def main(arg):
     cfg = configparser.ConfigParser()
     cfg.read(arg)
 
-    s = System(cfg)
+    s = get_solver(cfg)
     s.take_steps()
 #   profile.runctx('s.take_steps()', globals(), locals())
 
