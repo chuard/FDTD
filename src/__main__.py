@@ -18,6 +18,7 @@ def main(arg):
 
 
 
+    #print last frame
     max_val = np.amax(np.absolute(s.m_ez))
     print(max_val)
     print(s.m_ez[0,0])
